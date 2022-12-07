@@ -19,8 +19,7 @@ for (let i = 0; i <= splitInput.length; i++) {
                 if (count.get(str)) {
                     let currentValue = count.get(str)
                     if (currentValue) {
-                        currentValue += +row[0]
-                        count.set(str, currentValue)
+                        count.set(str, currentValue += +row[0])
                     }
                 } else {
                     count.set(str, +row[0]);
