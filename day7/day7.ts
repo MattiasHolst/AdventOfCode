@@ -19,7 +19,6 @@ for (let i = 0; i <= splitInput.length; i++) {
                 if (count.get(str)) {
                     let currentValue = count.get(str)
                     if (currentValue) {
-                        count.delete(str);
                         currentValue += +row[0]
                         count.set(str, currentValue)
                     }
