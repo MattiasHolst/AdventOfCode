@@ -1,18 +1,8 @@
 const day1Input = await Deno.readTextFile("./day1Input.txt");
 
-const splittedInput = day1Input.split("\n\n");
+const splittedInput = day1Input.split("\n");
 
-const stringNumbers = [
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-];
+
 
 const part1 = () => {
   let totalSum = 0;
@@ -34,10 +24,50 @@ const part1 = () => {
 };
 
 const part2 = () => {
+  const stringNumbers = ["one","two","three","four","five","six","seven","eight","nine",];
+  let totalSum = 0;
+  splittedInput.forEach((input) => {
+    const foundNumbers: number[] = [];
+    let fromStart = ""
+      for(let i = 0; i < input.length; i++) {
+        
+      const myInput =  input[i].replace(/(\r\n|\n|\r)/gm, "");
+          if(+myInput) {
+              foundNumbers.push(+myInput)
+              break;
+          }
+          fromStart = fromStart + myInput;
+          const foundNumber = stringNumbers.find((num) => fromStart.match(RegExp(`${num}`)))
+          if(foundNumber) {
+              foundNumbers.push(stringNumbers.indexOf(foundNumber) + 1)
+              break;
+          }
+          
+      }
+      let fromEnd = "";
+      for(let i = input.length-1; i > 0; i--) {
+        const myInput =  input[i].replace(/(\r\n|\n|\r)/gm, "");
+          if(+myInput) {
+              foundNumbers.push(+myInput)
+              break;
+          }
+          fromEnd = myInput + fromEnd;
+          const foundNumber = stringNumbers.find((num) => fromEnd.match(RegExp(`${num}`)))
+          if(foundNumber) {
+              foundNumbers.push(stringNumbers.indexOf(foundNumber) + 1)
+              break;
+          }
   
+      }
+      const first = foundNumbers[0];
+      const last = foundNumbers[foundNumbers.length - 1];
+      
+      totalSum += +`${first}${last}`
+  })
+  
+    return totalSum
 };
 
-const totalSumPart1 = part1();
-// const totaltSumPart2 = part2();
 
-console.log("my rowSum : ", totalSumPart1);
+console.log(part1())
+console.log(part2());
